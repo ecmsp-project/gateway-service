@@ -1,15 +1,13 @@
-package com.ecmsp.gatewayservice.auth.adapter;
+package com.ecmsp.gatewayservice.api.rest.auth;
 
-import com.ecmsp.gatewayservice.api.rest.AuthRequest;
-import com.ecmsp.gatewayservice.api.rest.AuthResponseDto;
-import com.ecmsp.gatewayservice.auth.AuthenticationException;
+import com.ecmsp.gatewayservice.application.exception.AuthenticationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class AuthClient {
+class AuthClient {
 
     private final RestTemplate restTemplate;
     private final String userServiceUrl;
@@ -24,7 +22,7 @@ public class AuthClient {
         AuthRequest request = new AuthRequest(login, password);
 
         ResponseEntity<AuthResponseDto> response = restTemplate.postForEntity(
-                userServiceUrl + "/auth/authenticate",
+                userServiceUrl + "/api/auth/authenticate",
                 request,
                 AuthResponseDto.class
         );

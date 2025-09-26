@@ -1,4 +1,4 @@
-package com.ecmsp.gatewayservice.auth;
+package com.ecmsp.gatewayservice.application.exception;
 
 public class AuthenticationException extends RuntimeException {
     public AuthenticationException(String message) {

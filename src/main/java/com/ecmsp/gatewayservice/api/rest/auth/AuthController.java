@@ -1,8 +1,7 @@
-package com.ecmsp.gatewayservice.api.rest;
+package com.ecmsp.gatewayservice.api.rest.auth;
 
 
-import com.ecmsp.gatewayservice.auth.AuthenticationException;
-import com.ecmsp.gatewayservice.auth.adapter.AuthClient;
+import com.ecmsp.gatewayservice.application.exception.AuthenticationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

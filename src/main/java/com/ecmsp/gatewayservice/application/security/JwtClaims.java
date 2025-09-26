@@ -1,6 +1,6 @@
 package com.ecmsp.gatewayservice.application.security;
 
-public record JwtClaims(
+record JwtClaims(
         String userId,
         String login,
         Long issuedAt,
