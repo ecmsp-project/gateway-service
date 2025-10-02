@@ -1,5 +1,6 @@
 package com.ecmsp.gatewayservice.application.security;
 
+import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletRequest;
