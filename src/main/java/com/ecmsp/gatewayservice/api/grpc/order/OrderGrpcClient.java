@@ -19,6 +19,8 @@ public class OrderGrpcClient {
         OrderServiceGrpc.OrderServiceBlockingStub stubWithMetadata =
             orderServiceStub.withCallCredentials(credentials);
 
+
+        //TODO: should be empty ListOrders and userId will be provided in metadata
         ListOrdersByUserIdRequest request = ListOrdersByUserIdRequest.newBuilder()
             .setUserId(userId)
             .build();

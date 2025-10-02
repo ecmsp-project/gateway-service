@@ -6,7 +6,6 @@ import com.ecmsp.gatewayservice.api.rest.order.dto.Order;
 import com.ecmsp.gatewayservice.api.grpc.order.mapper.OrderGrpcMapper;
 import com.ecmsp.order.v1.ListOrdersByUserIdResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,22 +31,20 @@ public class OrderController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<String> getMyOrders(HttpServletRequest request) {
+    public ResponseEntity<List<Order>> getMyOrders(HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
         String userId = wrapper.getUserId();
         String login = wrapper.getLogin();
 
         try {
-            ResponseEntity<String> response = orderServiceClient.getUserOrders(userId, login);
+            ResponseEntity<List<Order>> response = orderServiceClient.getUserOrders(userId, login);
             return ResponseEntity
                     .status(response.getStatusCode())
-                    .contentType(MediaType.APPLICATION_JSON)
                     .body(response.getBody());
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body("{\"error\": \"Failed to fetch orders\"}");
+                    .build();
         }
     }
 
