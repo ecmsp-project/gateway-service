@@ -1,4 +1,4 @@
-package com.ecmsp.gatewayservice.application.security;
+package com.ecmsp.gatewayservice.api.rest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
