@@ -1,5 +1,6 @@
 package com.ecmsp.gatewayservice.api.grpc;
 
+import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
 import io.grpc.CallCredentials;
 import io.grpc.Metadata;
 
@@ -10,10 +11,11 @@ public class UserContextGrpcWrapper extends CallCredentials {
     private final String userId;
     private final String login;
 
-    public UserContextGrpcWrapper(String userId, String login) {
-        this.userId = userId;
-        this.login = login;
+    public UserContextGrpcWrapper(UserContextWrapper userContextWrapper) {
+        this.userId = userContextWrapper.getUserId();
+        this.login = userContextWrapper.getLogin();
     }
+
 
     @Override
     public void applyRequestMetadata(RequestInfo requestInfo, Executor appExecutor, MetadataApplier applier) {
