@@ -51,7 +51,7 @@ import org.springframework.web.bind.annotation.*;
 //
 //    // List all returns for the authenticated user
 //    @GetMapping
-//    public ResponseEntity<List<ReturnSummary>> getMyReturns(HttpServletRequest request) {
+//    public ResponseEntity<List<ReturnSummary>> getReturns(HttpServletRequest request) {
 //        UserContextWrapper wrapper = (UserContextWrapper) request;
 //        String userId = wrapper.getUserId();
 //        String login = wrapper.getLogin();

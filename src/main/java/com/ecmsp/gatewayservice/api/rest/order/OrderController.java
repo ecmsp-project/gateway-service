@@ -3,6 +3,8 @@ package com.ecmsp.gatewayservice.api.rest.order;
 import com.ecmsp.gatewayservice.api.grpc.order.OrderGrpcClient;
 import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
 import com.ecmsp.gatewayservice.api.rest.order.dto.Order;
+import com.ecmsp.gatewayservice.api.rest.order.dto.OrderItem;
+import com.ecmsp.gatewayservice.api.rest.order.dto.OrderStatus;
 import com.ecmsp.gatewayservice.api.grpc.order.mapper.OrderGrpcMapper;
 import com.ecmsp.order.v1.*;
 import org.springframework.http.HttpStatus;
@@ -36,7 +38,7 @@ public class OrderController {
 
     //TODO: to remove we won't use rest - only for testing
     @GetMapping()
-    public ResponseEntity<List<Order>> getMyOrders(HttpServletRequest request) {
+    public ResponseEntity<List<Order>> getOrdersViaRest(HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
         String userId = wrapper.getUserId();
         String login = wrapper.getLogin();
@@ -54,13 +56,11 @@ public class OrderController {
     }
 
     @GetMapping("/grpc")
-    public ResponseEntity<List<Order>> getMyOrdersViaGrpc(HttpServletRequest request) {
+    public ResponseEntity<List<Order>> getOrders(HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
-        String userId = wrapper.getUserId();
-        String login = wrapper.getLogin();
 
         try {
-            ListOrdersByUserIdResponse grpcResponse = orderGrpcClient.listOrdersByUserId(userId, login);
+            ListOrdersByUserIdResponse grpcResponse = orderGrpcClient.listOrdersByUserId(wrapper);
             List<Order> orders = orderGrpcMapper.toOrders(grpcResponse);
 
             return ResponseEntity.ok(orders);
@@ -77,11 +77,9 @@ public class OrderController {
             @PathVariable String orderId,
             HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
-        String userId = wrapper.getUserId();
-        String login = wrapper.getLogin();
 
         try {
-            GetOrderResponse grpcResponse = orderGrpcClient.getOrder(orderId, userId, login);
+            GetOrderResponse grpcResponse = orderGrpcClient.getOrder(orderId, wrapper);
             Order order = orderGrpcMapper.toOrder(grpcResponse);
             return ResponseEntity.ok(order);
         } catch (Exception e) {
@@ -97,11 +95,9 @@ public class OrderController {
             @PathVariable String orderId,
             HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
-        String userId = wrapper.getUserId();
-        String login = wrapper.getLogin();
 
         try {
-            GetOrderItemsResponse grpcResponse = orderGrpcClient.getOrderItems(orderId, userId, login);
+            GetOrderItemsResponse grpcResponse = orderGrpcClient.getOrderItems(orderId, wrapper);
             List<OrderItem> items = orderGrpcMapper.toOrderItems(grpcResponse);
             return ResponseEntity.ok(items);
         } catch (Exception e) {
@@ -117,11 +113,9 @@ public class OrderController {
             @PathVariable String orderId,
             HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
-        String userId = wrapper.getUserId();
-        String login = wrapper.getLogin();
 
         try {
-            GetOrderStatusResponse grpcResponse = orderGrpcClient.getOrderStatus(orderId, userId, login);
+            GetOrderStatusResponse grpcResponse = orderGrpcClient.getOrderStatus(orderId, wrapper);
             OrderStatus status = orderGrpcMapper.toOrderStatus(grpcResponse);
             return ResponseEntity.ok(status);
         } catch (Exception e) {
