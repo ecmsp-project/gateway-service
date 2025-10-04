@@ -22,7 +22,6 @@ public class OrderGrpcClient {
 
         //TODO: should be empty ListOrders and userId will be provided in metadata
         ListOrdersByUserIdRequest request = ListOrdersByUserIdRequest.newBuilder()
-            .setUserId(userId)
             .build();
 
         return stubWithMetadata.listOrdersByUserId(request);
