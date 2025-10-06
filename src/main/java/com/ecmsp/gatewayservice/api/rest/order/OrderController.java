@@ -5,7 +5,7 @@ import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
 import com.ecmsp.gatewayservice.api.rest.order.dto.Order;
 import com.ecmsp.gatewayservice.api.rest.order.dto.OrderItem;
 import com.ecmsp.gatewayservice.api.rest.order.dto.OrderStatus;
-import com.ecmsp.gatewayservice.api.grpc.order.mapper.OrderGrpcMapper;
+import com.ecmsp.gatewayservice.api.grpc.order.OrderGrpcMapper;
 import com.ecmsp.order.v1.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

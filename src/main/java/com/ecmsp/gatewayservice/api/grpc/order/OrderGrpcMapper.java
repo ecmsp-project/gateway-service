@@ -1,4 +1,4 @@
-package com.ecmsp.gatewayservice.api.grpc.order.mapper;
+package com.ecmsp.gatewayservice.api.grpc.order;
 
 import com.ecmsp.gatewayservice.api.rest.order.dto.Order;
 import com.ecmsp.gatewayservice.api.rest.order.dto.OrderItem;
