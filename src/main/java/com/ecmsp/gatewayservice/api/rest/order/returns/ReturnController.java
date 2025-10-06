@@ -1,5 +1,6 @@
 package com.ecmsp.gatewayservice.api.rest.order.returns;
 
+import com.ecmsp.gatewayservice.api.grpc.order.returns.CreateReturnResponseDto;
 import com.ecmsp.gatewayservice.api.grpc.order.returns.ReturnGrpcClient;
 import com.ecmsp.gatewayservice.api.grpc.order.returns.ReturnGrpcMapper;
 import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
@@ -32,7 +33,7 @@ public class ReturnController {
 
 
     @PostMapping
-    public ResponseEntity<ReturnOrder> createReturn(
+    public ResponseEntity<CreateReturnResponseDto> createReturn(
             @RequestBody @Valid ReturnToCreate returnToCreate,
             HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
@@ -40,7 +41,7 @@ public class ReturnController {
         try {
             CreateReturnRequest grpcRequest = returnGrpcMapper.toCreateReturnRequest(returnToCreate);
             CreateReturnResponse grpcResponse = returnGrpcClient.createReturn(grpcRequest, wrapper);
-            ReturnOrder response = returnGrpcMapper.toReturnOrder(grpcResponse);
+            CreateReturnResponseDto response = returnGrpcMapper.toCreateResponseDto(grpcResponse);
 
             return ResponseEntity
                     .status(HttpStatus.CREATED)

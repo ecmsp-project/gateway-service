@@ -103,4 +103,11 @@ public class ReturnGrpcMapper {
                 proto.getReason()
         );
     }
+
+    public CreateReturnResponseDto toCreateResponseDto(CreateReturnResponse grpcResponse) {
+        return new CreateReturnResponseDto(
+                grpcResponse.getReturnId(),
+                grpcResponse.getStatus().toString()
+        );
+    }
 }
