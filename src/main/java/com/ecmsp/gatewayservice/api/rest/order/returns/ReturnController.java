@@ -1,6 +1,6 @@
 package com.ecmsp.gatewayservice.api.rest.order.returns;
 
-import com.ecmsp.gatewayservice.api.grpc.order.returns.CreateReturnResponseDto;
+import com.ecmsp.gatewayservice.api.rest.order.returns.dto.CreateReturnResponseDto;
 import com.ecmsp.gatewayservice.api.grpc.order.returns.ReturnGrpcClient;
 import com.ecmsp.gatewayservice.api.grpc.order.returns.ReturnGrpcMapper;
 import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
