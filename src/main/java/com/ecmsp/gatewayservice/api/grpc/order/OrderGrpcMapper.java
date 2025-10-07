@@ -1,8 +1,8 @@
 package com.ecmsp.gatewayservice.api.grpc.order;
 
-import com.ecmsp.gatewayservice.api.rest.order.dto.Order;
-import com.ecmsp.gatewayservice.api.rest.order.dto.OrderItem;
-import com.ecmsp.gatewayservice.api.rest.order.dto.OrderStatus;
+import com.ecmsp.gatewayservice.api.rest.order.dto.GetOrderResponseDto;
+import com.ecmsp.gatewayservice.api.rest.order.dto.OrderItemDetailsDto;
+import com.ecmsp.gatewayservice.api.rest.order.dto.GetOrderStatusResponseDto;
 import com.ecmsp.order.v1.*;
 import org.springframework.stereotype.Component;
 
@@ -11,57 +11,60 @@ import java.util.List;
 @Component
 public class OrderGrpcMapper {
 
-    public List<Order> toOrders(ListOrdersByUserIdResponse grpcResponse) {
+    public List<GetOrderResponseDto> toOrders(ListOrdersByUserIdResponse grpcResponse) {
         return grpcResponse.getOrdersList().stream()
                 .map(this::toOrderFromResponse)
                 .toList();
     }
 
-    public Order toOrder(GetOrderResponse grpcResponse) {
-        List<OrderItem> items = grpcResponse.getItemsList().stream()
+    public GetOrderResponseDto toOrder(GetOrderResponse grpcResponse) {
+        List<OrderItemDetailsDto> items = grpcResponse.getItemsList().stream()
                 .map(this::toOrderItem)
                 .toList();
 
-        return new Order(
+        return new GetOrderResponseDto(
                 grpcResponse.getOrderId(),
-                grpcResponse.getClientId(),
                 grpcResponse.getOrderStatus().name(),
                 grpcResponse.getDate(),
                 items
         );
     }
 
-    public List<OrderItem> toOrderItems(GetOrderItemsResponse grpcResponse) {
+    public List<OrderItemDetailsDto> toOrderItems(GetOrderItemsResponse grpcResponse) {
         return grpcResponse.getItemsList().stream()
                 .map(this::toOrderItem)
                 .toList();
     }
 
-    public OrderStatus toOrderStatus(GetOrderStatusResponse grpcResponse) {
-        return new OrderStatus(
+    public GetOrderStatusResponseDto toOrderStatus(GetOrderStatusResponse grpcResponse) {
+        return new GetOrderStatusResponseDto(
                 grpcResponse.getOrderId(),
                 grpcResponse.getOrderStatus().name()
         );
     }
 
-    private Order toOrderFromResponse(GetOrderResponse grpcOrder) {
-        List<OrderItem> items = grpcOrder.getItemsList().stream()
+    private GetOrderResponseDto toOrderFromResponse(GetOrderResponse grpcOrder) {
+        List<OrderItemDetailsDto> items = grpcOrder.getItemsList().stream()
                 .map(this::toOrderItem)
                 .toList();
 
-        return new Order(
+        return new GetOrderResponseDto(
                 grpcOrder.getOrderId(),
-                grpcOrder.getClientId(),
                 grpcOrder.getOrderStatus().name(),
                 grpcOrder.getDate(),
                 items
         );
     }
 
-    private OrderItem toOrderItem(OrderItemDetails grpcItem) {
-        return new OrderItem(
+    private OrderItemDetailsDto toOrderItem(OrderItemDetails grpcItem) {
+        return new OrderItemDetailsDto(
                 grpcItem.getItemId(),
-                grpcItem.getQuantity()
+                grpcItem.getVariantId(),
+                grpcItem.getQuantity(),
+                grpcItem.getPrice(),
+                grpcItem.getImageUrl(),
+                grpcItem.getDescription(),
+                grpcItem.getIsReturnable()
         );
     }
 }

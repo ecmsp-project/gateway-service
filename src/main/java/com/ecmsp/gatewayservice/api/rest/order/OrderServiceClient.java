@@ -1,6 +1,6 @@
 package com.ecmsp.gatewayservice.api.rest.order;
 
-import com.ecmsp.gatewayservice.api.rest.order.dto.Order;
+import com.ecmsp.gatewayservice.api.rest.order.dto.GetOrderResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -24,7 +24,7 @@ class OrderServiceClient {
         this.orderServiceUrl = orderServiceUrl;
     }
 
-    public ResponseEntity<List<Order>> getUserOrders(String userId, String login) {
+    public ResponseEntity<List<GetOrderResponseDto>> getUserOrders(String userId, String login) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-User-ID", userId);
         headers.set("X-Login", login);
@@ -36,7 +36,7 @@ class OrderServiceClient {
                 url,
                 HttpMethod.GET,
                 entity,
-                new ParameterizedTypeReference<List<Order>>() {}
+                new ParameterizedTypeReference<List<GetOrderResponseDto>>() {}
         );
     }
 }
