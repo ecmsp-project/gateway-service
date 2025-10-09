@@ -20,12 +20,17 @@ Public one is to verify the signature. For that reason
 3. Paste it into src/main/resources/keys
 ```
 
-### Services to run - order is not important
+### Services to run - sequence is not important
 1. user-service
 2. order-service
 3. gateway-service
 
-Just click run in IJ for every service, data are added automatically as database is created. 
+> order-service and user-service need to run with profile local 
+1. click 3 dots next to run and bug
+2. under configuration choose edit
+3. in Active profiles field enter "local"
+
+Just click run in IJ for every service, data are added automatically as database is created.
 So you don't need to run anything else.
 
 When all of them is running you can run your client: fronted or e2e repo
