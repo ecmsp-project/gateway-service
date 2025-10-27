@@ -10,6 +10,11 @@ grpc:
       address: static://localhost:7300
       # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
+    cart-service:
+      address: static://localhost:7300
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
+
 
 jwt:
   public-key-path: classpath:keys/local.public.key
