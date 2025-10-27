@@ -1,17 +1,21 @@
 package com.ecmsp.gatewayservice.application.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
-import java.nio.charset.StandardCharsets;
-import org.springframework.core.io.Resource;
-import org.springframework.util.StreamUtils;
 
 @Component
 public class JwtTokenReader {
@@ -33,10 +37,20 @@ public class JwtTokenReader {
             return new JwtClaims(
                     claims.getSubject(),
                     claims.get("login", String.class),
-                    claims.getIssuedAt().getTime() / 1000,
-                    claims.getExpiration().getTime() / 1000
+                    claims.getIssuedAt() != null ? claims.getIssuedAt().getTime() / 1000 : null,
+                    claims.getExpiration() != null ? claims.getExpiration().getTime() / 1000 : null
             );
 
+        } catch (ExpiredJwtException e) {
+            throw new RuntimeException("JWT expired", e);
+        } catch (MalformedJwtException e) {
+            throw new RuntimeException("Malformed JWT", e);
+        } catch (SignatureException e) {
+            throw new RuntimeException("Invalid JWT signature", e);
+        } catch (UnsupportedJwtException e) {
+            throw new RuntimeException("Unsupported JWT", e);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("JWT argument error", e);
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse JWT token", e);
         }

@@ -7,6 +7,8 @@ record JwtClaims(
         Long expiration
 ) {
     public boolean isExpired() {
-        return System.currentTimeMillis() / 1000 > expiration;
+        if (expiration == null) return false;
+        long nowSec = System.currentTimeMillis() / 1000;
+        return expiration < nowSec;
     }
 }

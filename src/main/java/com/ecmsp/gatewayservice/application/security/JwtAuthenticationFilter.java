@@ -43,6 +43,7 @@ public class JwtAuthenticationFilter implements Filter {
 
         } catch (Exception e) {
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            System.out.println("UNAUTHORIZED: " + e);
         }
     }
 }
