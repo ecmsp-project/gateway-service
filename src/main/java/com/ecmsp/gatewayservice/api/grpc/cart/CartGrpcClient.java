@@ -3,10 +3,12 @@ package com.ecmsp.gatewayservice.api.grpc.cart;
 import com.ecmsp.cart.v1.*;
 import com.ecmsp.gatewayservice.api.grpc.UserContextGrpcWrapper;
 import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
+import com.ecmsp.gatewayservice.api.rest.cart.dto.CartDto;
 import com.ecmsp.gatewayservice.api.rest.cart.dto.CartProductDto;
 import net.devh.boot.grpc.client.inject.GrpcClient;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class CartGrpcClient {
@@ -49,7 +51,20 @@ public class CartGrpcClient {
         return stubWithMetadata(wrapper).deleteCart(request);
     }
 
-    //TODO implement UpdateQuantites, delete CreateOrder
+    public UpdateQuantitiesResponse updateQuantitiesRequest(CartDto cartDto, UserContextWrapper wrapper) {
+        List<CartProductDto> cartProductsDtos = cartDto.productDtos();
+        List<CartProduct> cartProductsGrpc = cartProductsDtos.stream()
+                .map(dto ->
+                        CartProduct.newBuilder().setProductId(dto.productId()).setQuantity(dto.quantity()).build())
+                .toList();
+        Cart cart = Cart.newBuilder().addAllCartProducts(cartProductsGrpc).build();
+
+        UpdateQuantitiesRequest request = UpdateQuantitiesRequest.newBuilder().setCart(cart).build();
+
+        return stubWithMetadata(wrapper).updateQuantities(request);
+
+
+    }
 
 
     private CartServiceGrpc.CartServiceBlockingStub stubWithMetadata(UserContextWrapper wrapper) {

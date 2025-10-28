@@ -1,8 +1,6 @@
 package com.ecmsp.gatewayservice.api.rest.cart;
 
-import com.ecmsp.cart.v1.AddProductResponse;
-import com.ecmsp.cart.v1.DeleteProductResponse;
-import com.ecmsp.cart.v1.GetCartResponse;
+import com.ecmsp.cart.v1.*;
 import com.ecmsp.gatewayservice.api.grpc.cart.CartGrpcClient;
 import com.ecmsp.gatewayservice.api.grpc.cart.CartGrpcMapper;
 import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
@@ -72,6 +70,17 @@ public class CartController {
         }
     }
 
+    @PostMapping("/updateCart")
+    public ResponseEntity<CartDto> updateProductsQuantities(HttpServletRequest request, @RequestBody CartDto cartDto) {
+        UserContextWrapper wrapper = (UserContextWrapper) request;
+        try {
+            UpdateQuantitiesResponse grpcResponse = cartGrpcClient.updateQuantitiesRequest(cartDto, wrapper);
+            CartDto returnedCartDto = cartGrpcMapper.toCartDto(grpcResponse);
 
+            return ResponseEntity.ok(returnedCartDto);
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 }
