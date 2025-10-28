@@ -41,5 +41,13 @@ public class CartGrpcMapper {
     }
 
 
+    public CartDto toCartDto(UpdateQuantitiesResponse grpcResponse) {
+        List<CartProductDto> cartProductsGrpcList =
+                grpcResponse.getCart().getCartProductsList().stream()
+                        .map(grpcProduct ->
+                                new CartProductDto(grpcProduct.getProductId(), grpcProduct.getQuantity())
+                        ).toList();
 
+        return new CartDto(cartProductsGrpcList);
+    }
 }
