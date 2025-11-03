@@ -51,19 +51,11 @@ public class CartGrpcClient {
         return stubWithMetadata(wrapper).deleteCart(request);
     }
 
-    public UpdateQuantitiesResponse updateQuantitiesRequest(CartDto cartDto, UserContextWrapper wrapper) {
-        List<CartProductDto> cartProductsDtos = cartDto.productDtos();
-        List<CartProduct> cartProductsGrpc = cartProductsDtos.stream()
-                .map(dto ->
-                        CartProduct.newBuilder().setProductId(dto.productId()).setQuantity(dto.quantity()).build())
-                .toList();
-        Cart cart = Cart.newBuilder().addAllCartProducts(cartProductsGrpc).build();
+    public UpdateQuantityResponse updateQuantityRequest(CartProductDto cartProductDto, UserContextWrapper wrapper) {
+        ProductRequest productRequest = ProductRequest.newBuilder().setProductId(cartProductDto.productId()).setQuantity(cartProductDto.quantity()).build();
+        UpdateQuantityRequest request = UpdateQuantityRequest.newBuilder().setProduct(productRequest).build();
 
-        UpdateQuantitiesRequest request = UpdateQuantitiesRequest.newBuilder().setCart(cart).build();
-
-        return stubWithMetadata(wrapper).updateQuantities(request);
-
-
+        return stubWithMetadata(wrapper).updateQuantity(request);
     }
 
 
@@ -72,5 +64,18 @@ public class CartGrpcClient {
 
         return cartServiceBlockingStub.withCallCredentials(credentials);
 
+    }
+
+    public SubtractProductResponse subtractProductFromCart(CartProductDto cartProductDto, UserContextWrapper wrapper) {
+        ProductRequest productRequest = ProductRequest.newBuilder()
+                .setProductId(cartProductDto.productId())
+                .setQuantity(cartProductDto.quantity())
+                .build();
+
+        SubtractProductRequest request = SubtractProductRequest.newBuilder()
+                .setProduct(productRequest)
+                .build();
+
+        return stubWithMetadata(wrapper).subtractProduct(request);
     }
 }
