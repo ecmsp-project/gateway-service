@@ -70,15 +70,28 @@ public class CartController {
         }
     }
 
-    @PostMapping("/updateCart")
-    public ResponseEntity<CartDto> updateProductsQuantities(HttpServletRequest request, @RequestBody CartDto cartDto) {
+    @PostMapping("/updateQuantity")
+    public ResponseEntity<CartDto> updateProductQuantity(HttpServletRequest request, @RequestBody CartProductDto cartProductDto) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
         try {
-            UpdateQuantitiesResponse grpcResponse = cartGrpcClient.updateQuantitiesRequest(cartDto, wrapper);
+            UpdateQuantityResponse grpcResponse = cartGrpcClient.updateQuantityRequest(cartProductDto, wrapper);
             CartDto returnedCartDto = cartGrpcMapper.toCartDto(grpcResponse);
 
             return ResponseEntity.ok(returnedCartDto);
         }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/subtractProduct")
+    public ResponseEntity<CartDto> subtractProductFromCart(HttpServletRequest request, @RequestBody CartProductDto cartProductDto) {
+        UserContextWrapper wrapper = (UserContextWrapper) request;
+        try {
+            SubtractProductResponse grpcResponse = cartGrpcClient.subtractProductFromCart(cartProductDto, wrapper);
+            CartDto returnedCartDto = cartGrpcMapper.toCartDto(grpcResponse);
+
+            return ResponseEntity.ok(returnedCartDto);
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
