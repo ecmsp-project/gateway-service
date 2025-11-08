@@ -16,6 +16,9 @@ import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenReader {
@@ -34,9 +37,18 @@ public class JwtTokenReader {
                     .parseSignedClaims(token)
                     .getPayload();
 
+            // Extract permissions from JWT claim
+            List<?> permissionsList = claims.get("permissions", List.class);
+            Set<String> permissions = permissionsList != null
+                    ? permissionsList.stream()
+                            .map(Object::toString)
+                            .collect(Collectors.toSet())
+                    : Set.of();
+
             return new JwtClaims(
                     claims.getSubject(),
                     claims.get("login", String.class),
+                    permissions,
                     claims.getIssuedAt() != null ? claims.getIssuedAt().getTime() / 1000 : null,
                     claims.getExpiration() != null ? claims.getExpiration().getTime() / 1000 : null
             );

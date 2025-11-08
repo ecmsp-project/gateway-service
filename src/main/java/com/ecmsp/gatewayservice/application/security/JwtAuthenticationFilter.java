@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter implements Filter {
                 return;
             }
 
-            UserContextWrapper wrapper = new UserContextWrapper(httpRequest, claims.userId(), claims.login());
+            UserContextWrapper wrapper = new UserContextWrapper(httpRequest, claims.userId(), claims.login(), claims.permissions());
             chain.doFilter(wrapper, response);
 
         } catch (Exception e) {

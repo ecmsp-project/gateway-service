@@ -11,7 +11,11 @@ grpc:
       # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
     cart-service:
-      address: static://localhost:7300
+      address: static://localhost:7400
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
+    user-service:
+      address: static://localhost:7500
       # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
 
