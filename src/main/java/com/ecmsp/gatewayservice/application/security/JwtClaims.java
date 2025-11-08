@@ -1,8 +1,11 @@
 package com.ecmsp.gatewayservice.application.security;
 
+import java.util.Set;
+
 record JwtClaims(
         String userId,
         String login,
+        Set<String> permissions,
         Long issuedAt,
         Long expiration
 ) {
