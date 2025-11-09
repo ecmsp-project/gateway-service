@@ -47,6 +47,7 @@ public class OrderController {
                     .status(response.getStatusCode())
                     .body(response.getBody());
         } catch (Exception e) {
+            System.out.println("Error fetching orders via REST: " + e.getMessage());
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .build();
@@ -85,6 +86,7 @@ public class OrderController {
 
             return ResponseEntity.ok(orders);
         } catch (Exception e) {
+            System.out.println("Error fetching all orders: " + e.getMessage());
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .build();
