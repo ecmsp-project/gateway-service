@@ -30,7 +30,8 @@ public class OrderGrpcMapper {
                 grpcResponse.getOrderId(),
                 grpcResponse.getOrderStatus().name(),
                 grpcResponse.getDate(),
-                items
+                items,
+                grpcResponse.getClientId()
         );
     }
 
@@ -56,7 +57,8 @@ public class OrderGrpcMapper {
                 grpcOrder.getOrderId(),
                 grpcOrder.getOrderStatus().name(),
                 grpcOrder.getDate(),
-                items
+                items,
+                grpcOrder.getClientId()
         );
     }
 
