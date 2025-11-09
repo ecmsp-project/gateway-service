@@ -42,7 +42,6 @@ public class UserGrpcMapper {
 
     private RoleDto toRoleDto(Role grpcRole) {
         return new RoleDto(
-                grpcRole.getId().getValue(),
                 grpcRole.getName(),
                 grpcRole.getPermissionsList()
         );

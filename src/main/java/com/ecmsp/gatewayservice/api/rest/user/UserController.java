@@ -43,21 +43,6 @@ public class UserController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<UserDto> createUser(
-            HttpServletRequest request,
-            @RequestBody UserToCreateDto userToCreateDto) {
-        UserContextWrapper wrapper = (UserContextWrapper) request;
-
-        try {
-            CreateUserResponse grpcResponse = userGrpcClient.createUser(userToCreateDto, wrapper);
-            UserDto userDto = userGrpcMapper.toUserDto(grpcResponse);
-            return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
     @PutMapping("/{userId}")
     public ResponseEntity<UserDto> updateUser(
             HttpServletRequest request,
