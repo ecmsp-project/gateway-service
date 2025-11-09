@@ -1,8 +1,8 @@
-package com.ecmsp.gatewayservice.api.rest.user.dto;
+package com.ecmsp.gatewayservice.api.rest.role.dto;
 
 import java.util.List;
 
-public record RoleDto(
+public record RoleToCreateDto(
         String name,
         List<String> permissions
 ) {

@@ -48,12 +48,8 @@ public class UserGrpcClient {
         // Add roles if present
         if (userDto.roles() != null) {
             userDto.roles().forEach(roleDto -> {
-                RoleId roleId = RoleId.newBuilder()
-                        .setValue(roleDto.id())
-                        .build();
 
                 Role role = Role.newBuilder()
-                        .setId(roleId)
                         .setName(roleDto.name())
                         .addAllPermissions(roleDto.permissions())
                         .build();
