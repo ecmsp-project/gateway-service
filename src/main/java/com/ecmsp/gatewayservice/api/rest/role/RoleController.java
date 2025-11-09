@@ -30,103 +30,68 @@ public class RoleController {
 
     @PostMapping
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleToCreateDto roleToCreateDto, HttpServletRequest request) {
-        try {
-            UserContextWrapper wrapper = (UserContextWrapper) request;
+        UserContextWrapper wrapper = (UserContextWrapper) request;
 
-            Role grpcRole = Role.newBuilder()
-                    .setName(roleToCreateDto.name())
-                    .addAllPermissions(roleToCreateDto.permissions())
-                    .build();
+        Role grpcRole = Role.newBuilder()
+                .setName(roleToCreateDto.name())
+                .addAllPermissions(roleToCreateDto.permissions())
+                .build();
 
-            CreateRoleResponse grpcResponse = roleGrpcClient.createRole(grpcRole, wrapper);
-            RoleDto roleDto = roleGrpcMapper.toRoleDto(grpcResponse);
+        CreateRoleResponse grpcResponse = roleGrpcClient.createRole(grpcRole, wrapper);
+        RoleDto roleDto = roleGrpcMapper.toRoleDto(grpcResponse);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(roleDto);
-        } catch (Exception e) {
-            log.error("Exception from createRole: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(roleDto);
     }
 
     @PutMapping()
     public ResponseEntity<RoleDto> updateRole(@RequestBody RoleDto roleDto, HttpServletRequest request) {
-        try {
-            UserContextWrapper wrapper = (UserContextWrapper) request;
+        UserContextWrapper wrapper = (UserContextWrapper) request;
 
-            Role grpcRole = Role.newBuilder()
-                    .setName(roleDto.name())
-                    .addAllPermissions(roleDto.permissions())
-                    .build();
+        Role grpcRole = Role.newBuilder()
+                .setName(roleDto.name())
+                .addAllPermissions(roleDto.permissions())
+                .build();
 
-            UpdateRoleResponse grpcResponse = roleGrpcClient.updateRole(grpcRole, wrapper);
-            RoleDto updatedRoleDto = roleGrpcMapper.toRoleDto(grpcResponse);
+        UpdateRoleResponse grpcResponse = roleGrpcClient.updateRole(grpcRole, wrapper);
+        RoleDto updatedRoleDto = roleGrpcMapper.toRoleDto(grpcResponse);
 
-            return ResponseEntity.ok(updatedRoleDto);
-        } catch (Exception e) {
-            log.error("Exception from updateRole: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        return ResponseEntity.ok(updatedRoleDto);
     }
 
     @DeleteMapping("/{roleId}")
     public ResponseEntity<Void> deleteRole(@PathVariable String roleId, HttpServletRequest request) {
-        try {
-            UserContextWrapper wrapper = (UserContextWrapper) request;
-            roleGrpcClient.deleteRole(roleId, wrapper);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            log.error("Exception from deleteRole: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        UserContextWrapper wrapper = (UserContextWrapper) request;
+        roleGrpcClient.deleteRole(roleId, wrapper);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity<List<RoleDto>> listRoles(HttpServletRequest request) {
-        try {
-            UserContextWrapper wrapper = (UserContextWrapper) request;
-            ListRolesResponse grpcResponse = roleGrpcClient.listRoles(wrapper);
-            List<RoleDto> roles = roleGrpcMapper.toRoleListDto(grpcResponse);
-            return ResponseEntity.ok(roles);
-        } catch (Exception e) {
-            log.error("Exception from listRoles: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        UserContextWrapper wrapper = (UserContextWrapper) request;
+        ListRolesResponse grpcResponse = roleGrpcClient.listRoles(wrapper);
+        List<RoleDto> roles = roleGrpcMapper.toRoleListDto(grpcResponse);
+        return ResponseEntity.ok(roles);
     }
 
     @PostMapping("/{roleId}/users")
     public ResponseEntity<Void> assignRoleToUsers(@PathVariable String roleId, @RequestBody AssignRoleRequestDto assignRoleRequestDto, HttpServletRequest request) {
-        try {
-            UserContextWrapper wrapper = (UserContextWrapper) request;
-            roleGrpcClient.assignRoleToUsers(roleId, assignRoleRequestDto.userIds(), wrapper);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            log.error("Exception from assignRoleToUsers: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        UserContextWrapper wrapper = (UserContextWrapper) request;
+        roleGrpcClient.assignRoleToUsers(roleId, assignRoleRequestDto.userIds(), wrapper);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{roleId}/users")
     public ResponseEntity<Void> removeRoleFromUsers(@PathVariable String roleId, @RequestBody AssignRoleRequestDto assignRoleRequestDto, HttpServletRequest request) {
-        try {
-            UserContextWrapper wrapper = (UserContextWrapper) request;
-            roleGrpcClient.removeRoleFromUsers(roleId, assignRoleRequestDto.userIds(), wrapper);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            log.error("Exception from removeRoleFromUsers: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        UserContextWrapper wrapper = (UserContextWrapper) request;
+        roleGrpcClient.removeRoleFromUsers(roleId, assignRoleRequestDto.userIds(), wrapper);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/permissions")
     public ResponseEntity<List<String>> listAllPermissions(HttpServletRequest request) {
-        try {
             UserContextWrapper wrapper = (UserContextWrapper) request;
             ListAllPermissionsResponse grpcResponse = roleGrpcClient.listAllPermissions(wrapper);
             List<String> permissions = roleGrpcMapper.toPermissionList(grpcResponse);
             return ResponseEntity.ok(permissions);
-        } catch (Exception e) {
-            log.error("Exception from listAllPermissions: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
 }

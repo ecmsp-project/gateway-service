@@ -38,19 +38,13 @@ public class ReturnController {
             HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            CreateReturnRequest grpcRequest = returnGrpcMapper.toCreateReturnRequest(returnToCreate);
-            CreateReturnResponse grpcResponse = returnGrpcClient.createReturn(grpcRequest, wrapper);
-            CreateReturnResponseDto response = returnGrpcMapper.toCreateResponseDto(grpcResponse);
+        CreateReturnRequest grpcRequest = returnGrpcMapper.toCreateReturnRequest(returnToCreate);
+        CreateReturnResponse grpcResponse = returnGrpcClient.createReturn(grpcRequest, wrapper);
+        CreateReturnResponseDto response = returnGrpcMapper.toCreateResponseDto(grpcResponse);
 
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(response);
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 
 
@@ -58,15 +52,9 @@ public class ReturnController {
     public ResponseEntity<List<ReturnOrder>> getReturns(HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            ListReturnsByUserIdResponse grpcResponse = returnGrpcClient.listReturnsByUserId(wrapper);
-            List<ReturnOrder> returns = returnGrpcMapper.toReturnOrders(grpcResponse);
-            return ResponseEntity.ok(returns);
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        ListReturnsByUserIdResponse grpcResponse = returnGrpcClient.listReturnsByUserId(wrapper);
+        List<ReturnOrder> returns = returnGrpcMapper.toReturnOrders(grpcResponse);
+        return ResponseEntity.ok(returns);
     }
 
 
@@ -76,14 +64,8 @@ public class ReturnController {
             HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            GetReturnResponse grpcResponse = returnGrpcClient.getReturn(returnId, wrapper);
-            ReturnOrder returnOrder = returnGrpcMapper.toReturnOrder(grpcResponse);
-            return ResponseEntity.ok(returnOrder);
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        GetReturnResponse grpcResponse = returnGrpcClient.getReturn(returnId, wrapper);
+        ReturnOrder returnOrder = returnGrpcMapper.toReturnOrder(grpcResponse);
+        return ResponseEntity.ok(returnOrder);
     }
 }

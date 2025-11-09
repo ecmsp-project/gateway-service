@@ -1,20 +1,25 @@
 package com.ecmsp.gatewayservice.api.rest.order;
 
 import com.ecmsp.gatewayservice.api.grpc.order.OrderGrpcClient;
+import com.ecmsp.gatewayservice.api.grpc.order.OrderGrpcMapper;
+import com.ecmsp.gatewayservice.api.grpc.user.PermissionsEnum;
 import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
 import com.ecmsp.gatewayservice.api.rest.order.dto.GetOrderResponseDto;
+import com.ecmsp.gatewayservice.api.rest.order.dto.GetOrderStatusResponseDto;
 import com.ecmsp.gatewayservice.api.rest.order.dto.OrderItemDetailsDto;
 import com.ecmsp.gatewayservice.api.rest.order.dto.GetOrderStatusResponseDto;
 import com.ecmsp.gatewayservice.api.rest.order.dto.CreateOrderRequestDto;
 import com.ecmsp.gatewayservice.api.rest.order.dto.CreateOrderResponseDto;
 import com.ecmsp.gatewayservice.api.grpc.order.OrderGrpcMapper;
 import com.ecmsp.order.v1.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
+
+import static com.ecmsp.gatewayservice.api.grpc.user.PermissionsEnum.READ_ORDERS;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -40,56 +45,30 @@ public class OrderController {
         String userId = wrapper.getUserId();
         String login = wrapper.getLogin();
 
-        try {
-            ResponseEntity<List<GetOrderResponseDto>> response = orderServiceClient.getUserOrders(userId, login);
-            return ResponseEntity
-                    .status(response.getStatusCode())
-                    .body(response.getBody());
-        } catch (Exception e) {
-            System.out.println("Error fetching orders via REST: " + e.getMessage());
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        ResponseEntity<List<GetOrderResponseDto>> response = orderServiceClient.getUserOrders(userId, login);
+        return ResponseEntity
+                .status(response.getStatusCode())
+                .body(response.getBody());
     }
 
     @GetMapping("/grpc")
     public ResponseEntity<List<GetOrderResponseDto>> getOrders(HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            ListOrdersByUserIdResponse grpcResponse = orderGrpcClient.listOrdersByUserId(wrapper);
-            List<GetOrderResponseDto> orders = orderGrpcMapper.toOrders(grpcResponse);
+        ListOrdersByUserIdResponse grpcResponse = orderGrpcClient.listOrdersByUserId(wrapper);
+        List<GetOrderResponseDto> orders = orderGrpcMapper.toOrders(grpcResponse);
 
-            return ResponseEntity.ok(orders);
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        return ResponseEntity.ok(orders);
     }
 
     @GetMapping("/grpc/all")
     public ResponseEntity<List<GetOrderResponseDto>> getAllOrders(HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-//        if (!wrapper.hasPermission("ADMIN")) {
-//            return ResponseEntity
-//                    .status(HttpStatus.FORBIDDEN)
-//                    .build();
-//        }
+        ListOrdersResponse grpcResponse = orderGrpcClient.listOrders(wrapper);
+        List<GetOrderResponseDto> orders = orderGrpcMapper.toOrders(grpcResponse);
 
-        try {
-            ListOrdersResponse grpcResponse = orderGrpcClient.listOrders(wrapper);
-            List<GetOrderResponseDto> orders = orderGrpcMapper.toOrders(grpcResponse);
-
-            return ResponseEntity.ok(orders);
-        } catch (Exception e) {
-            System.out.println("Error fetching all orders: " + e.getMessage());
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        return ResponseEntity.ok(orders);
     }
 
 
@@ -102,15 +81,9 @@ public class OrderController {
             HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            GetOrderResponse grpcResponse = orderGrpcClient.getOrder(orderId, wrapper);
-            GetOrderResponseDto order = orderGrpcMapper.toOrder(grpcResponse);
-            return ResponseEntity.ok(order);
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        GetOrderResponse grpcResponse = orderGrpcClient.getOrder(orderId, wrapper);
+        GetOrderResponseDto order = orderGrpcMapper.toOrder(grpcResponse);
+        return ResponseEntity.ok(order);
     }
 
     // Get order items (with isReturnable flag for frontend)
@@ -120,15 +93,9 @@ public class OrderController {
             HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            GetOrderItemsResponse grpcResponse = orderGrpcClient.getOrderItems(orderId, wrapper);
-            List<OrderItemDetailsDto> items = orderGrpcMapper.toOrderItems(grpcResponse);
-            return ResponseEntity.ok(items);
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        GetOrderItemsResponse grpcResponse = orderGrpcClient.getOrderItems(orderId, wrapper);
+        List<OrderItemDetailsDto> items = orderGrpcMapper.toOrderItems(grpcResponse);
+        return ResponseEntity.ok(items);
     }
 
     // Get order tracking/status
@@ -138,15 +105,10 @@ public class OrderController {
             HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            GetOrderStatusResponse grpcResponse = orderGrpcClient.getOrderStatus(orderId, wrapper);
-            GetOrderStatusResponseDto status = orderGrpcMapper.toOrderStatus(grpcResponse);
-            return ResponseEntity.ok(status);
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        GetOrderStatusResponse grpcResponse = orderGrpcClient.getOrderStatus(orderId, wrapper);
+        GetOrderStatusResponseDto status = orderGrpcMapper.toOrderStatus(grpcResponse);
+        return ResponseEntity.ok(status);
+
     }
 
     // Create new order

@@ -28,13 +28,8 @@ public class RegisterUserController {
     @PostMapping("/api/register")
     public ResponseEntity<UserDto> createUser(
             @RequestBody UserToCreateDto userToCreateDto) {
-        try {
-            CreateUserResponse grpcResponse = userGrpcClient.createUser(userToCreateDto);
-            UserDto userDto = userGrpcMapper.toUserDto(grpcResponse);
-            return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
-        } catch (Exception e) {
-            log.error("Exception from createUser: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        CreateUserResponse grpcResponse = userGrpcClient.createUser(userToCreateDto);
+        UserDto userDto = userGrpcMapper.toUserDto(grpcResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
     }
 }

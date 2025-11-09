@@ -119,3 +119,161 @@ src/main/java/com/ecmsp/gatewayservice/
 │       └── RestTemplateConfig.java
 └── GatewayServiceApplication.java
 ```
+
+#GRPC Protobufs schemas
+user_service.proto
+```protobuf
+syntax = "proto3";
+
+import "user/v1/user.proto";
+package user.v1;
+
+option java_multiple_files = true;
+option java_package = "com.ecmsp.user.v1";
+option java_outer_classname = "UserServiceProto";
+
+service UserService {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+
+  rpc CreateRole(CreateRoleRequest) returns (CreateRoleResponse);
+  rpc UpdateRole(UpdateRoleRequest) returns (UpdateRoleResponse);
+  rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse);
+  rpc ListRoles(ListRolesRequest) returns (ListRolesResponse);
+  rpc AssignRoleToUsers(AssignRoleToUsersRequest) returns (AssignRoleToUsersResponse);
+  rpc RemoveRoleFromUsers(RemoveRoleFromUsersRequest) returns (RemoveRoleFromUsersResponse);
+  rpc ListAllPermissions(ListAllPermissionsRequest) returns (ListAllPermissionsResponse);
+}
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+message CreateUserRequest {
+  UserToCreate user_to_create = 1;
+}
+
+message CreateUserResponse {
+  User user = 1;
+}
+
+message UpdateUserRequest {
+  User user = 1;
+}
+
+message UpdateUserResponse {
+  User user = 1;
+}
+
+message DeleteUserRequest {
+  string user_id = 1;
+}
+
+message DeleteUserResponse {
+}
+
+message ListUsersRequest {
+  string filter_login = 1;
+  repeated User users = 2;
+}
+
+message ListUsersResponse {
+  repeated User users = 1;
+}
+
+message CreateRoleRequest {
+  Role role = 1;
+}
+
+message CreateRoleResponse {
+  Role role = 1;
+}
+
+message UpdateRoleRequest {
+  Role role = 1;
+}
+
+message UpdateRoleResponse {
+  Role role = 1;
+}
+
+message DeleteRoleRequest {
+  string role_id = 1;
+}
+
+message DeleteRoleResponse {
+}
+
+message ListRolesRequest {
+}
+
+message ListRolesResponse {
+  repeated Role roles = 1;
+}
+
+message AssignRoleToUsersRequest {
+  string role_id = 1;
+  repeated string user_ids = 2;
+}
+
+message AssignRoleToUsersResponse {
+}
+message RemoveRoleFromUsersRequest {
+  string role_id = 1;
+  repeated string user_ids = 2;
+}
+
+message RemoveRoleFromUsersResponse {
+
+}
+message ListAllPermissionsRequest {
+
+}
+
+message ListAllPermissionsResponse {
+  repeated string permissions = 1;
+}
+```
+
+user.proto
+```protobuf
+syntax = "proto3";
+
+package user.v1;
+
+option java_multiple_files = true;
+option java_package = "com.ecmsp.user.v1";
+option java_outer_classname = "UserProto";
+
+message UserId {
+  string value = 1;
+}
+
+message RoleId {
+  string value = 1;
+}
+
+message Role {
+  RoleId id = 1;
+  string name = 2;
+  repeated string permissions = 3;
+}
+
+message User {
+  UserId id = 1;
+  string login = 2;
+  repeated Role roles = 3;
+}
+
+message UserToCreate {
+  string login = 1;
+  string password = 2;
+}
+```

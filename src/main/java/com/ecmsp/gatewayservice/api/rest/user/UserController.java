@@ -33,14 +33,9 @@ public class UserController {
             @PathVariable String userId) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            GetUserResponse grpcResponse = userGrpcClient.getUser(userId, wrapper);
-            UserDto userDto = userGrpcMapper.toUserDto(grpcResponse);
-            return ResponseEntity.ok(userDto);
-        } catch (Exception e) {
-            log.error("Exception from getUser: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        GetUserResponse grpcResponse = userGrpcClient.getUser(userId, wrapper);
+        UserDto userDto = userGrpcMapper.toUserDto(grpcResponse);
+        return ResponseEntity.ok(userDto);
     }
 
     @PutMapping("/{userId}")
@@ -50,18 +45,14 @@ public class UserController {
             @RequestBody UserDto userDto) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            // Ensure the path userId matches the DTO userId
-            if (!userId.equals(userDto.id())) {
-                return ResponseEntity.badRequest().build();
-            }
-
-            UpdateUserResponse grpcResponse = userGrpcClient.updateUser(userDto, wrapper);
-            UserDto updatedUserDto = userGrpcMapper.toUserDto(grpcResponse);
-            return ResponseEntity.ok(updatedUserDto);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        // Ensure the path userId matches the DTO userId
+        if (!userId.equals(userDto.id())) {
+            return ResponseEntity.badRequest().build();
         }
+
+        UpdateUserResponse grpcResponse = userGrpcClient.updateUser(userDto, wrapper);
+        UserDto updatedUserDto = userGrpcMapper.toUserDto(grpcResponse);
+        return ResponseEntity.ok(updatedUserDto);
     }
 
     @DeleteMapping("/{userId}")
@@ -70,12 +61,8 @@ public class UserController {
             @PathVariable String userId) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            userGrpcClient.deleteUser(userId, wrapper);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        userGrpcClient.deleteUser(userId, wrapper);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
@@ -84,13 +71,8 @@ public class UserController {
             @RequestParam(required = false) String filterLogin) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try {
-            ListUsersResponse grpcResponse = userGrpcClient.listUsers(filterLogin, wrapper);
-            List<UserDto> users = userGrpcMapper.toUserListDto(grpcResponse);
-            return ResponseEntity.ok(users);
-        } catch (Exception e) {
-            log.error("Exception from listUsers: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        ListUsersResponse grpcResponse = userGrpcClient.listUsers(filterLogin, wrapper);
+        List<UserDto> users = userGrpcMapper.toUserListDto(grpcResponse);
+        return ResponseEntity.ok(users);
     }
 }
