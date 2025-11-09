@@ -23,7 +23,7 @@ public class UserGrpcClient {
         return stubWithMetadata(wrapper).getUser(request);
     }
 
-    public CreateUserResponse createUser(UserToCreateDto userToCreateDto, UserContextWrapper wrapper) {
+    public CreateUserResponse createUser(UserToCreateDto userToCreateDto) {
         UserToCreate userToCreate = UserToCreate.newBuilder()
                 .setLogin(userToCreateDto.login())
                 .setPassword(userToCreateDto.password())
@@ -33,7 +33,7 @@ public class UserGrpcClient {
                 .setUserToCreate(userToCreate)
                 .build();
 
-        return stubWithMetadata(wrapper).createUser(request);
+        return userServiceBlockingStub.withCallCredentials(null).createUser(request);
     }
 
     public UpdateUserResponse updateUser(UserDto userDto, UserContextWrapper wrapper) {
