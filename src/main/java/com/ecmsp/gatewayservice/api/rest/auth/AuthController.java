@@ -20,11 +20,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequest request) {
-        try {
-            AuthResponseDto response = authClient.authenticate(request.login(), request.password());
-            return ResponseEntity.ok(response);
-        } catch (AuthenticationException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        AuthResponseDto response = authClient.authenticate(request.login(), request.password());
+        return ResponseEntity.ok(response);
     }
 }

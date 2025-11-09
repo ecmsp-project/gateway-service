@@ -27,73 +27,50 @@ public class CartController {
     public ResponseEntity<CartDto> getUserCart(HttpServletRequest request) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try{
-            GetCartResponse grpcResponse = cartGrpcClient.getUserCart(wrapper);
-            CartDto cartDto = cartGrpcMapper.toCartDto(grpcResponse);
+        GetCartResponse grpcResponse = cartGrpcClient.getUserCart(wrapper);
+        CartDto cartDto = cartGrpcMapper.toCartDto(grpcResponse);
 
-            return ResponseEntity.ok(cartDto);
-        }
-        catch (Exception e) {
-            System.out.println("Exception from getUserCart: " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        return ResponseEntity.ok(cartDto);
     }
 
     @PostMapping("/addProduct")
     public ResponseEntity<CartDto> addProductToCart(HttpServletRequest request, @RequestBody CartProductDto cartProductDto) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try{
-            AddProductResponse grpcResponse = cartGrpcClient.addProductToCart(cartProductDto, wrapper);
-            CartDto cartDto = cartGrpcMapper.toCartDto(grpcResponse);
+        AddProductResponse grpcResponse = cartGrpcClient.addProductToCart(cartProductDto, wrapper);
+        CartDto cartDto = cartGrpcMapper.toCartDto(grpcResponse);
 
-            return ResponseEntity.ok(cartDto);
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        return ResponseEntity.ok(cartDto);
     }
 
     @PostMapping("/deleteProduct")
     public ResponseEntity<CartDto> deleteProductFromCart(HttpServletRequest request, @RequestBody CartProductDto cartProductDto) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
-        try{
-            DeleteProductResponse grpcResponse = cartGrpcClient.deleteProductFromCart(cartProductDto, wrapper);
-            CartDto cartDto = cartGrpcMapper.toCartDto(grpcResponse);
+        DeleteProductResponse grpcResponse = cartGrpcClient.deleteProductFromCart(cartProductDto, wrapper);
+        CartDto cartDto = cartGrpcMapper.toCartDto(grpcResponse);
 
-            return ResponseEntity.ok(cartDto);
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        return ResponseEntity.ok(cartDto);
     }
 
     @PostMapping("/updateQuantity")
     public ResponseEntity<CartDto> updateProductQuantity(HttpServletRequest request, @RequestBody CartProductDto cartProductDto) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
-        try {
-            UpdateQuantityResponse grpcResponse = cartGrpcClient.updateQuantityRequest(cartProductDto, wrapper);
-            CartDto returnedCartDto = cartGrpcMapper.toCartDto(grpcResponse);
 
-            return ResponseEntity.ok(returnedCartDto);
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        UpdateQuantityResponse grpcResponse = cartGrpcClient.updateQuantityRequest(cartProductDto, wrapper);
+        CartDto returnedCartDto = cartGrpcMapper.toCartDto(grpcResponse);
+
+        return ResponseEntity.ok(returnedCartDto);
     }
 
     @PostMapping("/subtractProduct")
     public ResponseEntity<CartDto> subtractProductFromCart(HttpServletRequest request, @RequestBody CartProductDto cartProductDto) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
-        try {
-            SubtractProductResponse grpcResponse = cartGrpcClient.subtractProductFromCart(cartProductDto, wrapper);
-            CartDto returnedCartDto = cartGrpcMapper.toCartDto(grpcResponse);
 
-            return ResponseEntity.ok(returnedCartDto);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        SubtractProductResponse grpcResponse = cartGrpcClient.subtractProductFromCart(cartProductDto, wrapper);
+        CartDto returnedCartDto = cartGrpcMapper.toCartDto(grpcResponse);
+
+        return ResponseEntity.ok(returnedCartDto);
     }
 
 }

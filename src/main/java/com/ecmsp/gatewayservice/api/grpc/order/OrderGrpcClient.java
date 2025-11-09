@@ -1,10 +1,14 @@
 package com.ecmsp.gatewayservice.api.grpc.order;
 
 import com.ecmsp.gatewayservice.api.grpc.UserContextGrpcWrapper;
+import com.ecmsp.gatewayservice.api.grpc.exceptions.UnauthorizedException;
+import com.ecmsp.gatewayservice.api.grpc.user.PermissionsEnum;
 import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
 import com.ecmsp.order.v1.*;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Component;
+
+import static com.ecmsp.gatewayservice.api.grpc.user.PermissionsEnum.READ_ORDERS;
 
 @Component
 public class OrderGrpcClient {

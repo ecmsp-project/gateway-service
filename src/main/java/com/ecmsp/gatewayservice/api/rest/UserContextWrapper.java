@@ -1,5 +1,6 @@
 package com.ecmsp.gatewayservice.api.rest;
 
+import com.ecmsp.gatewayservice.api.grpc.user.PermissionsEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 
@@ -30,8 +31,12 @@ public class UserContextWrapper extends HttpServletRequestWrapper {
         return permissions;
     }
 
-    public boolean hasPermission(String permission) {
-        return permissions.contains(permission);
+    public boolean hasPermission(PermissionsEnum permission) {
+        return permissions.contains(permission.name());
+    }
+
+    public boolean isHimselfOrHasPermission(PermissionsEnum permission) {
+        return this.userId.equals(userId) || hasPermission(permission);
     }
 
     @Override
