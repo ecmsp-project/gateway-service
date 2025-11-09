@@ -69,6 +69,31 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/grpc/all")
+    public ResponseEntity<List<GetOrderResponseDto>> getAllOrders(HttpServletRequest request) {
+        UserContextWrapper wrapper = (UserContextWrapper) request;
+
+//        if (!wrapper.hasPermission("ADMIN")) {
+//            return ResponseEntity
+//                    .status(HttpStatus.FORBIDDEN)
+//                    .build();
+//        }
+
+        try {
+            ListOrdersResponse grpcResponse = orderGrpcClient.listOrders(wrapper);
+            List<GetOrderResponseDto> orders = orderGrpcMapper.toOrders(grpcResponse);
+
+            return ResponseEntity.ok(orders);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .build();
+        }
+    }
+
+
+
+
     // Get specific order details
     @GetMapping("/grpc/{orderId}")
     public ResponseEntity<GetOrderResponseDto> getOrder(
