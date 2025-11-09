@@ -5,14 +5,13 @@ import com.ecmsp.gatewayservice.api.rest.UserContextWrapper;
 import com.ecmsp.gatewayservice.api.rest.order.dto.GetOrderResponseDto;
 import com.ecmsp.gatewayservice.api.rest.order.dto.OrderItemDetailsDto;
 import com.ecmsp.gatewayservice.api.rest.order.dto.GetOrderStatusResponseDto;
+import com.ecmsp.gatewayservice.api.rest.order.dto.CreateOrderRequestDto;
+import com.ecmsp.gatewayservice.api.rest.order.dto.CreateOrderResponseDto;
 import com.ecmsp.gatewayservice.api.grpc.order.OrderGrpcMapper;
 import com.ecmsp.order.v1.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -149,6 +148,30 @@ public class OrderController {
                     .build();
         }
     }
+
+    // Create new order
+    @PostMapping("/grpc")
+    public ResponseEntity<CreateOrderResponseDto> createOrder(
+            @RequestBody CreateOrderRequestDto requestDto,
+            HttpServletRequest request) {
+        UserContextWrapper wrapper = (UserContextWrapper) request;
+
+        try {
+            CreateOrderRequest grpcRequest = orderGrpcMapper.toGrpcCreateOrderRequest(requestDto);
+            CreateOrderResponse grpcResponse = orderGrpcClient.createOrder(grpcRequest, wrapper);
+            CreateOrderResponseDto response = orderGrpcMapper.toCreateOrderResponse(grpcResponse);
+
+            return ResponseEntity
+                    .status(response.isSuccess() ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST)
+                    .body(response);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .build();
+        }
+    }
+
+
 
 
 

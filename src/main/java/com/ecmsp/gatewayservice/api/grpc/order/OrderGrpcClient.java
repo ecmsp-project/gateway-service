@@ -81,5 +81,18 @@ public class OrderGrpcClient {
     }
 
 
+    public CreateOrderResponse createOrder(CreateOrderRequest createOrderRequest, UserContextWrapper wrapper) {
+        UserContextGrpcWrapper credentials = new UserContextGrpcWrapper(wrapper);
+
+        OrderServiceGrpc.OrderServiceBlockingStub stubWithMetadata =
+                orderServiceStub.withCallCredentials(credentials);
+
+        return stubWithMetadata.createOrder(createOrderRequest);
+    }
+
+
+
+
+
 
 }
