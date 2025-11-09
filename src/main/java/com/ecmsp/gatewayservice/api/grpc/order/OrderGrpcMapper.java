@@ -17,6 +17,12 @@ public class OrderGrpcMapper {
                 .toList();
     }
 
+    public List<GetOrderResponseDto> toOrders(ListOrdersResponse grpcResponse) {
+        return grpcResponse.getOrdersList().stream()
+                .map(this::toOrderFromResponse)
+                .toList();
+    }
+
     public GetOrderResponseDto toOrder(GetOrderResponse grpcResponse) {
         List<OrderItemDetailsDto> items = grpcResponse.getItemsList().stream()
                 .map(this::toOrderItem)
