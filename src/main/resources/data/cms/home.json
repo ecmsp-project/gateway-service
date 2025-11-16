@@ -11,6 +11,11 @@
     "title" : "Najlepsze Ceny",
     "description" : "Konkurencyjne ceny na rynku"
   }, {
+    "id" : "f1763309546629",
+    "icon" : "TrendingUpIcon",
+    "title" : "Nowy Kafelek",
+    "description" : "Opis kafelka"
+  }, {
     "id" : "f2",
     "icon" : "LocalShippingIcon",
     "title" : "Darmowa Dostawa",
@@ -62,7 +67,7 @@
   "categoriesSubtitle" : "Odkryj nasze najlepsze kategorie produktów",
   "footer" : {
     "shopName" : "E-COMMERCE to przyszłość",
-    "shopDescription" : "Wszystko co potrzebujesz w jednym miejscu. Jakość, niskie ceny i szybka dostawa. Twoje zakupy, nasza pasja.",
+    "shopDescription" : "Wszystko co potrzebujesz w jednym miejscu. Jakość, niskie ceny i szybka dostawa. Twoje zakupy, nasza pasja. asdas",
     "customerServiceHours" : [ "Pon-Pt: 8:00 - 20:00", "Sob: 9:00 - 17:00" ],
     "customerServicePhone" : "+48 123 456 789 2137",
     "socialMedia" : {
