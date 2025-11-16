@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: Gateway service
+  profiles:
+    active: dev
+
+grpc:
+  client:
+    order-service:
+      address: static://localhost:7300
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
+    cart-service:
+      address: static://localhost:7400
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
+    user-service:
+      address: static://localhost:7500
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
+
+
+jwt:
+  public-key-path: classpath:keys/local.public.key
+
+services:
+  cart-service:
+    url: http://localhost:8100
+  payment-service:
+    url: http://localhost:8200
+  order-service:
+    url: http://localhost:8300
+  product-service:
+    url: http://localhost:8400
+  user-service:
+    url: http://localhost:8500
+
+server:
+  port: 8600

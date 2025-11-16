@@ -1,0 +1,83 @@
+{
+  "hero" : {
+    "title" : "dupa piękna",
+    "subtitle" : "Odkryj najlepsze produkty w najlepszych cenach",
+    "primaryButtonText" : "Rozpocznij Zakupy",
+    "secondaryButtonText" : "Dowiedz Się Więcej"
+  },
+  "features" : [ {
+    "id" : "f1763309546629",
+    "icon" : "TrendingUpIcon",
+    "title" : "Nowy Kafelek",
+    "description" : "Opis kafelka"
+  }, {
+    "id" : "f1",
+    "icon" : "TrendingUpIcon",
+    "title" : "Najlepsze Ceny",
+    "description" : "Konkurencyjne ceny na rynku"
+  }, {
+    "id" : "f2",
+    "icon" : "LocalShippingIcon",
+    "title" : "Darmowa Dostawa",
+    "description" : "Przy zamówieniach powyżej 100 zł"
+  }, {
+    "id" : "f3",
+    "icon" : "VerifiedUserIcon",
+    "title" : "Bezpieczne Zakupy",
+    "description" : "Gwarancja zwrotu pieniędzy"
+  } ],
+  "categories" : [ {
+    "id" : 1,
+    "name" : "Elektronika",
+    "image" : "https://via.placeholder.com/400x300/1976d2/ffffff?text=Elektronika",
+    "icon" : "PhoneAndroidIcon",
+    "color" : "#1976d2"
+  }, {
+    "id" : 2,
+    "name" : "Ubrania",
+    "image" : "https://via.placeholder.com/400x300/9c27b0/ffffff?text=Ubrania",
+    "icon" : "CheckroomIcon",
+    "color" : "#9c27b0"
+  }, {
+    "id" : 3,
+    "name" : "Kosmetyki",
+    "image" : "https://via.placeholder.com/400x300/e91e63/ffffff?text=Kosmetyki",
+    "icon" : "SpaIcon",
+    "color" : "#e91e63"
+  }, {
+    "id" : 4,
+    "name" : "Dom i Ogród",
+    "image" : "https://via.placeholder.com/400x300/4caf50/ffffff?text=Dom+i+Ogród",
+    "icon" : "HomeIcon",
+    "color" : "#4caf50"
+  }, {
+    "id" : 5,
+    "name" : "Sport",
+    "image" : "https://via.placeholder.com/400x300/ff9800/ffffff?text=Sport",
+    "icon" : "SportsBasketballIcon",
+    "color" : "#ff9800"
+  }, {
+    "id" : 6,
+    "name" : "Książki",
+    "image" : "https://via.placeholder.com/400x300/795548/ffffff?text=Książki",
+    "icon" : "MenuBookIcon",
+    "color" : "#795548"
+  } ],
+  "categoriesTitle" : "Popularne Kategorie",
+  "categoriesSubtitle" : "Odkryj nasze najlepsze kategorie produktów",
+  "footer" : {
+    "shopName" : "E-COMMERCE to przyszłość",
+    "shopDescription" : "Wszystko co potrzebujesz w jednym miejscu. Jakość, niskie ceny i szybka dostawa. Twoje zakupy, nasza pasja. asdas",
+    "customerServiceHours" : [ "Pon-Pt: 8:00 - 20:00", "Sob: 9:00 - 17:00" ],
+    "customerServicePhone" : "+48 123 456 789 21372",
+    "socialMedia" : {
+      "facebook" : "https://facebook.com",
+      "twitter" : "https://twitter.com",
+      "instagram" : "https://instagram.com",
+      "linkedin" : "https://linkedin.com"
+    },
+    "copyrightText" : "© 2025 E-COMMERCE. Wszelkie prawa zastrzeżone."
+  },
+  "headerShopName" : "E-COMMERCE",
+  "selectedCategoryIds" : [ "340343ae-dfe0-460c-85c1-75cf45a0781e", "cc380e52-4702-41b2-9759-65ad9d02719e" ]
+}
