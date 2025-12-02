@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Filip/Desktop/ecmsp/schema-definitions/protos/product/v1/category/v1/**)",
+      "Read(//c/Users/Filip/Desktop/ecmsp/schema-definitions/protos/product/v1/property/v1/**)",
+      "Read(//c/Users/Filip/Desktop/ecmsp/schema-definitions/protos/product/v1/variant/v1/**)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
