@@ -19,8 +19,10 @@ grpc:
       # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
     product-service:
-      address: static://localhost:7600
+      address: static://localhost:7400
+      # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
+
 
 jwt:
   public-key-path: classpath:keys/local.public.key
