@@ -20,8 +20,8 @@ grpc:
       # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
 
-jwt:
-  public-key-path: file:/run/secrets/jwt-public-key
+# jwt:
+#   public-key-path: file:/run/secrets/jwt-public-key
 
 services:
   cart-service:
