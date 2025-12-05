@@ -15,6 +15,10 @@ grpc:
     product-service:
       address: static://product-service:50051
       negotiationType: PLAINTEXT
+    statistics-service:
+      address: static://statistics-service:50051
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
 
 jwt:
   public-key-path: file:/run/secrets/jwt-public-key
@@ -30,6 +34,8 @@ services:
     url: http://product-service:8080
   user-service:
     url: http://user-service:8080
+  statistics-service:
+    url: http://statistics-service:8080
 
 server:
   port: 50051
