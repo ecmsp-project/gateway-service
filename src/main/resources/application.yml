@@ -22,6 +22,10 @@ grpc:
       address: static://localhost:7400
       # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
+    statistics-service:
+      address: static://localhost:7700
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
 
 
 jwt:
@@ -38,6 +42,8 @@ services:
     url: http://localhost:8400
   user-service:
     url: http://localhost:8500
+  statistics-service:
+    url: http://localhost:8700
 
 server:
   port: 8600
