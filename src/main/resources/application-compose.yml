@@ -1,1 +1,41 @@
-# Compose profile configuration
+grpc:
+  client:
+    order-service:
+      address: static://order-service:50051
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
+    cart-service:
+      address: static://cart-service:50051
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
+    user-service:
+      address: static://user-service:50051
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
+    product-service:
+      address: static://product-service:50051
+      negotiationType: PLAINTEXT
+    statistics-service:
+      address: static://statistics-service:50051
+      # This means no TLS/SSL encryption (for local development)
+      negotiationType: PLAINTEXT
+
+# jwt:
+#   public-key-path: file:/run/secrets/jwt-public-key
+
+services:
+  cart-service:
+    url: http://cart-service:8080
+  payment-service:
+    url: http://payment-service:8080
+  order-service:
+    url: http://order-service:8080
+  product-service:
+    url: http://product-service:8080
+  user-service:
+    url: http://user-service:8080
+  statistics-service:
+    url: http://statistics-service:8080
+
+server:
+  port: 50051

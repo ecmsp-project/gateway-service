@@ -28,8 +28,8 @@ grpc:
       negotiationType: PLAINTEXT
 
 
-jwt:
-  public-key-path: classpath:keys/local.public.key
+# jwt:
+#   public-key-path: file:keys/local.public.key
 
 services:
   cart-service:
