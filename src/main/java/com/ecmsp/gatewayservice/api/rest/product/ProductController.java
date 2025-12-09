@@ -29,8 +29,8 @@ public class ProductController {
 
     @PostMapping("/grpc")
     public ResponseEntity<CreateProductResponseDto> createProduct(
-            @RequestBody CreateProductRequestDto requestDto,
-            HttpServletRequest request) {
+            HttpServletRequest request,
+            @RequestBody CreateProductRequestDto requestDto) {
         UserContextWrapper wrapper = (UserContextWrapper) request;
 
         try {
