@@ -14,7 +14,7 @@ class JwtConfig {
     public FilterRegistrationBean<JwtAuthenticationFilter> jwtAuthenticationFilter(JwtTokenReader jwtTokenReader) {
         FilterRegistrationBean<JwtAuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new JwtAuthenticationFilter(jwtTokenReader));
-        registrationBean.addUrlPatterns("/api/orders/*", "/api/returns/*", "/api/cart/*", "/api/users/*", "/api/roles/*", "/api/deliveries/*", "/api/statistics/*");
+        registrationBean.addUrlPatterns("/api/orders/*", "/api/returns/*", "/api/cart/*", "/api/users/*", "/api/roles/*", "/api/deliveries/*", "/api/statistics/*", "/api/products/*");
                 registrationBean.setOrder(100);
         return registrationBean;
     }
