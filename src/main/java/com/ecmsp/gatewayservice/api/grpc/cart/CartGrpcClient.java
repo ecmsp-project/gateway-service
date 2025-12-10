@@ -28,7 +28,7 @@ public class CartGrpcClient {
         AddProductRequest request = AddProductRequest.newBuilder()
                 .setProduct(
                         ProductRequest.newBuilder()
-                                .setProductId(cartProductDto.productId())
+                                .setProductId(cartProductDto.productId().toString())
                                 .setQuantity(cartProductDto.quantity())
                                 .build()
                 ).build();
@@ -39,7 +39,7 @@ public class CartGrpcClient {
     public DeleteProductResponse deleteProductFromCart(CartProductDto cartProductDto, UserContextWrapper wrapper) {
 
         DeleteProductRequest request = DeleteProductRequest.newBuilder()
-                .setProductId(cartProductDto.productId())
+                .setProductId(cartProductDto.productId().toString())
                 .build();
 
         return stubWithMetadata(wrapper).deleteProduct(request);
@@ -52,7 +52,7 @@ public class CartGrpcClient {
     }
 
     public UpdateQuantityResponse updateQuantityRequest(CartProductDto cartProductDto, UserContextWrapper wrapper) {
-        ProductRequest productRequest = ProductRequest.newBuilder().setProductId(cartProductDto.productId()).setQuantity(cartProductDto.quantity()).build();
+        ProductRequest productRequest = ProductRequest.newBuilder().setProductId(cartProductDto.productId().toString()).setQuantity(cartProductDto.quantity()).build();
         UpdateQuantityRequest request = UpdateQuantityRequest.newBuilder().setProduct(productRequest).build();
 
         return stubWithMetadata(wrapper).updateQuantity(request);
@@ -68,7 +68,7 @@ public class CartGrpcClient {
 
     public SubtractProductResponse subtractProductFromCart(CartProductDto cartProductDto, UserContextWrapper wrapper) {
         ProductRequest productRequest = ProductRequest.newBuilder()
-                .setProductId(cartProductDto.productId())
+                .setProductId(cartProductDto.productId().toString())
                 .setQuantity(cartProductDto.quantity())
                 .build();
 

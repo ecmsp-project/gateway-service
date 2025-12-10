@@ -72,7 +72,7 @@
 		<dependency>
 			<groupId>com.ecmsp</groupId>
 			<artifactId>protos</artifactId>
-			<version>1.0.0-20251205.092710-56</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
         <dependency>
