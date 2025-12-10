@@ -6,15 +6,20 @@ import com.ecmsp.gatewayservice.api.rest.cart.dto.CartProductDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class CartGrpcMapper {
+
+    private UUID convertToUUID(String id) {
+        return UUID.fromString(id);
+    }
 
     public CartDto toCartDto(GetCartResponse grpcResponse) {
         List<CartProductDto> cartProductsGrpcList =
                 grpcResponse.getCart().getCartProductsList().stream()
                         .map(grpcProduct ->
-                                new CartProductDto(grpcProduct.getProductId(), grpcProduct.getQuantity())
+                                new CartProductDto(convertToUUID(grpcProduct.getProductId()), grpcProduct.getQuantity())
                         ).toList();
 
         return new CartDto(cartProductsGrpcList);
@@ -24,7 +29,7 @@ public class CartGrpcMapper {
         List<CartProductDto> cartProductsGrpcList =
                 grpcResponse.getCart().getCartProductsList().stream()
                         .map(grpcProduct ->
-                                new CartProductDto(grpcProduct.getProductId(), grpcProduct.getQuantity())
+                                new CartProductDto(convertToUUID(grpcProduct.getProductId()), grpcProduct.getQuantity())
                         ).toList();
 
         return new CartDto(cartProductsGrpcList);
@@ -34,7 +39,7 @@ public class CartGrpcMapper {
         List<CartProductDto> cartProductsGrpcList =
                 grpcResponse.getCart().getCartProductsList().stream()
                         .map(grpcProduct ->
-                                new CartProductDto(grpcProduct.getProductId(), grpcProduct.getQuantity())
+                                new CartProductDto(convertToUUID(grpcProduct.getProductId()), grpcProduct.getQuantity())
                         ).toList();
 
         return new CartDto(cartProductsGrpcList);
@@ -45,7 +50,7 @@ public class CartGrpcMapper {
         List<CartProductDto> cartProductsGrpcList =
                 grpcResponse.getCart().getCartProductsList().stream()
                         .map(grpcProduct ->
-                                new CartProductDto(grpcProduct.getProductId(), grpcProduct.getQuantity())
+                                new CartProductDto(convertToUUID(grpcProduct.getProductId()), grpcProduct.getQuantity())
                         ).toList();
 
         return new CartDto(cartProductsGrpcList);
@@ -55,7 +60,7 @@ public class CartGrpcMapper {
         List<CartProductDto> cartProductsGrpcList =
                 grpcResponse.getCat().getCartProductsList().stream()
                         .map(grpcProduct ->
-                                new CartProductDto(grpcProduct.getProductId(), grpcProduct.getQuantity())
+                                new CartProductDto(convertToUUID(grpcProduct.getProductId()), grpcProduct.getQuantity())
                         ).toList();
 
         return new CartDto(cartProductsGrpcList);

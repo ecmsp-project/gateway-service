@@ -1,4 +1,6 @@
 package com.ecmsp.gatewayservice.api.rest.cart.dto;
 
-public record CartProductDto(Integer productId, Integer quantity) {
+import java.util.UUID;
+
+public record CartProductDto(UUID productId, Integer quantity) {
 }
