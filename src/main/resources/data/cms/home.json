@@ -1,0 +1,101 @@
+{
+  "hero": {
+    "title": "Your the best E-commerce shop",
+    "subtitle": "Discover the best products at the best prices",
+    "primaryButtonText": "Shop Now",
+    "secondaryButtonText": "Learn More"
+  },
+  "features": [
+    {
+      "id": "f1763309546629",
+      "icon": "TrendingUpIcon",
+      "title": "New Arrivals",
+      "description": "Check out the latest items"
+    },
+    {
+      "id": "f1",
+      "icon": "TrendingUpIcon",
+      "title": "Best Prices",
+      "description": "Competitive market prices"
+    },
+    {
+      "id": "f2",
+      "icon": "LocalShippingIcon",
+      "title": "Free Shipping",
+      "description": "On orders over $50"
+    },
+    {
+      "id": "f3",
+      "icon": "VerifiedUserIcon",
+      "title": "Secure Shopping",
+      "description": "Money-back guarantee"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Electronics",
+      "image": "https://via.placeholder.com/400x300/1976d2/ffffff?text=Elektronika",
+      "icon": "PhoneAndroidIcon",
+      "color": "#1976d2"
+    },
+    {
+      "id": 2,
+      "name": "Clothing",
+      "image": "https://via.placeholder.com/400x300/9c27b0/ffffff?text=Ubrania",
+      "icon": "CheckroomIcon",
+      "color": "#9c27b0"
+    },
+    {
+      "id": 3,
+      "name": "Beauty",
+      "image": "https://via.placeholder.com/400x300/e91e63/ffffff?text=Kosmetyki",
+      "icon": "SpaIcon",
+      "color": "#e91e63"
+    },
+    {
+      "id": 4,
+      "name": "Home & Garden",
+      "image": "https://via.placeholder.com/400x300/4caf50/ffffff?text=Dom+i+Ogród",
+      "icon": "HomeIcon",
+      "color": "#4caf50"
+    },
+    {
+      "id": 5,
+      "name": "Sports",
+      "image": "https://via.placeholder.com/400x300/ff9800/ffffff?text=Sport",
+      "icon": "SportsBasketballIcon",
+      "color": "#ff9800"
+    },
+    {
+      "id": 6,
+      "name": "Books",
+      "image": "https://via.placeholder.com/400x300/795548/ffffff?text=Książki",
+      "icon": "MenuBookIcon",
+      "color": "#795548"
+    }
+  ],
+  "categoriesTitle": "Popular Categories",
+  "categoriesSubtitle": "Discover our top product categories",
+  "footer": {
+    "shopName": "E-COMMERCE is the Future",
+    "shopDescription": "Everything you need in one place. Quality, low prices, and fast delivery. Your shopping, our passion.",
+    "customerServiceHours": [
+      "Mon-Fri: 8:00 AM - 8:00 PM",
+      "Sat: 9:00 AM - 5:00 PM"
+    ],
+    "customerServicePhone": "+1 555 012 3456",
+    "socialMedia": {
+      "facebook": "https://facebook.com",
+      "twitter": "https://twitter.com",
+      "instagram": "https://instagram.com",
+      "linkedin": "https://linkedin.com"
+    },
+    "copyrightText": "© 2025 E-COMMERCE. All rights reserved."
+  },
+  "headerShopName": "E-COMMERCE",
+  "selectedCategoryIds": [
+    "340343ae-dfe0-460c-85c1-75cf45a0781e",
+    "cc380e52-4702-41b2-9759-65ad9d02719e"
+  ]
+}

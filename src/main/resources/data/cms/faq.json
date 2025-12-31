@@ -1,0 +1,27 @@
+{
+  "pageTitle": "Najczęściej zadawane pytania",
+  "pageSubtitle": "Nie mozesz znalezc odpowiedzi na swoje pytanie?",
+  "faqItems": [
+    {
+      "id": "faq1",
+      "question": "Jak mogę złożyć zamówienie?",
+      "answer": "Złożenie zamówienia jest bardzo proste! Wybierz interesujące Cię produkty, dodaj je do koszyka, przejdź do kasy i wypełnij formularz z danymi dostawy. Następnie wybierz metodę płatności i potwierdź zamówienie. Otrzymasz e-mail z potwierdzeniem zamówienia.",
+      "expanded": true
+    },
+    {
+      "id": "faq2",
+      "question": "Jakie metody płatności akceptujecie?",
+      "answer": "Akceptujemy płatności kartą płatniczą (Visa, Mastercard), przelewem bankowym, płatności online (BLIK, Przelewy24), a także płatność przy odbiorze (za pobraniem). Wszystkie płatności są bezpieczne i szyfrowane."
+    },
+    {
+      "id": "faq3",
+      "question": "Ile kosztuje dostawa?",
+      "answer": "Dostawa jest darmowa przy zamówieniach powyżej 200 zł. Dla zamówień poniżej tej kwoty koszt dostawy wynosi 15 zł. Oferujemy również dostawę kurierem ekspresową za 25 zł oraz odbiór osobisty w naszym sklepie stacjonarnym za darmo."
+    },
+    {
+      "id": "faq4",
+      "question": "Jak mogę skontaktować się z obsługą klienta?",
+      "answer": "Możesz skontaktować się z nami przez e-mail (sklep@naszasklep.pl), telefon (123-456-789) lub czat na stronie. Nasza obsługa klienta jest dostępna od poniedziałku do piątku w godzinach 9:00-17:00. Odpowiadamy na wiadomości w ciągu 24 godzin."
+    }
+  ]
+}
