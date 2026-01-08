@@ -2,6 +2,8 @@ name: Build and test Java project
 
 on:
     pull_request:
+        branches:
+          - main
     workflow_dispatch:
 
 jobs:
