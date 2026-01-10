@@ -1,22 +1,22 @@
 grpc:
   client:
     order-service:
-      address: static://order-service:50051
+      address: dns:///order-service:50051
       # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
     cart-service:
-      address: static://cart-service:50051
+      address: dns:///cart-service:50051
       # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
     user-service:
-      address: static://user-service:50051
+      address: dns:///user-service:50051
       # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
     product-service:
-      address: static://product-service:50051
+      address: dns:///product-service:50051
       negotiationType: PLAINTEXT
     statistics-service:
-      address: static://statistics-service:50051
+      address: dns:///statistics-service:50051
       # This means no TLS/SSL encryption (for local development)
       negotiationType: PLAINTEXT
 
